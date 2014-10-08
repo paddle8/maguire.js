@@ -374,6 +374,7 @@ var define, requireModule, require, requirejs;
     __exports__.registerCurrency = registerCurrency;
     __exports__.registerLocale = registerLocale;
     __exports__.format = format;
+    __exports__.reset = reset;
   });
 ;define("maguire/utils", 
   ["exports"],
