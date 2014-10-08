@@ -1,0 +1,5 @@
+{
+  "framework": "qunit",
+  "cwd": "dist/",
+  "test_page": "index.html"
+}
