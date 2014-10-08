@@ -10,12 +10,12 @@ Adding a currencies is simply:
 
 ```javascript
 var maguire = require('maguire');
-maguire.registerCurrencies([{
+maguire.registerCurrency("USD", {
   name: 'US Dollar',
   code: 'USD',
   number: '840',
   minor_units: 2,
   precision: 100,
   symbol: '$'
-}]);
+});
 ```
