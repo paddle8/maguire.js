@@ -36,8 +36,6 @@ define("maguire",
       var majorValue = Math.floor(Math.abs(value) / currency.precision);
       var minorValue = Math.round(Math.abs(value) - majorValue * currency.precision);
 
-      var groups = splitValueIntoGroups(majorValue, locale.digit_grouping_style);
-
       var formatting = locale.positive;
       if (value < 0) {
         formatting = locale.negative;
@@ -65,6 +63,8 @@ define("maguire",
           minorValue = rjust(minorValue, currency.minor_units, "0");
         }
       }
+
+      var groups = splitValueIntoGroups(majorValue, formatting.digit_grouping_style);
 
       return fmt(formatting.layout, {
         symbol: symbol,

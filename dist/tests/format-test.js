@@ -36,57 +36,59 @@ maguire.registerCurrency("DOGE", {
 });
 
 maguire.registerLocale('en-US', {
-  digit_grouping_style: 'triples',
   positive: {
     layout: "%{symbol}%{major_value}%{decimal}%{minor_value}",
     decimal_symbol: '.',
     digit_grouping_symbol: ',',
+    digit_grouping_style: 'triples'
   },
   negative: {
     layout: "-%{symbol}%{major_value}%{decimal}%{minor_value}",
     decimal_symbol: '.',
-    digit_grouping_symbol: ','
+    digit_grouping_symbol: ',',
+    digit_grouping_style: 'triples'
   }
 });
 
 maguire.registerLocale('fr-FR', {
-  digit_grouping_style: 'triples',
   positive: {
     layout: "%{major_value}%{decimal}%{minor_value} %{symbol}",
     decimal_symbol: ',',
     digit_grouping_symbol: ' ',
+    digit_grouping_style: 'triples'
   }
 });
 
 maguire.registerLocale('en-IN', {
-  digit_grouping_style: 'south_asian',
   positive: {
     layout: "%{symbol}%{major_value}%{decimal}%{minor_value}",
     decimal_symbol: '.',
     digit_grouping_symbol: ',',
+    digit_grouping_style: 'south_asian'
   },
 });
 
 maguire.registerLocale('ja-JP', {
-  digit_grouping_style: 'quadruples',
   positive: {
     layout: "%{major_value}%{decimal}%{minor_value}%{symbol}",
     decimal_symbol: '.',
     digit_grouping_symbol: ',',
+    digit_grouping_style: 'quadruples'
   },
 });
 
 maguire.registerLocale('en-NO', {
-  digit_grouping_style: 'triples',
   positive: {
     layout: "%{symbol} %{major_value}%{decimal}%{minor_value}",
     decimal_symbol: ',',
-    digit_grouping_symbol: '.'
+    digit_grouping_symbol: '.',
+    digit_grouping_style: 'triples'
   },
   zero: {
     layout: "%{symbol} %{major_value}%{decimal}-",
     decimal_symbol: ',',
-    digit_grouping_symbol: '.'
+    digit_grouping_symbol: '.',
+    digit_grouping_style: 'triples'
   }
 });
 
