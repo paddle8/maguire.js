@@ -322,25 +322,17 @@ var define, requireModule, require, requirejs;
       currencies = {};
     };
 
-    var formatNumber = function (money) {
-      var currency = currencies[money.currency.toLowerCase()];
-      var value = money.value;
-      if (value == null || value === '') {
-        return null;
-      }
-
-      var majorValue = Math.floor(Math.abs(value) / currency.precision);
-      var minorValue = Math.round(Math.abs(value) - majorValue * currency.precision);
-
-      return parseFloat(majorValue + "." + minorValue, 10);
-    };
-
     var format = function (money, options) {
       options = options || {};
 
       var currency = currencies[money.currency.toLowerCase()];
       var value = money.value;
       var locale = locales[options.locale || defaultLocale];
+
+      // Fast path; null values should return null
+      if (value == null) {
+        return null;
+      }
 
       var majorValue = Math.floor(Math.abs(value) / currency.precision);
       var minorValue = Math.round(Math.abs(value) - majorValue * currency.precision);
@@ -377,13 +369,17 @@ var define, requireModule, require, requirejs;
         }
       }
 
-      var groups = splitValueIntoGroups(majorValue, formatting.digit_grouping_style);
+      var majorValue = splitValueIntoGroups(majorValue, formatting.digit_grouping_style).join(formatting.digit_grouping_symbol);
+
+      if (options.number) {
+        return majorValue + decimalSymbol + minorValue;
+      }
 
       return fmt(formatting.layout, {
         symbol: symbol,
         code: currency.code,
         decimal: decimalSymbol,
-        major_value: groups.join(formatting.digit_grouping_symbol),
+        major_value: majorValue,
         minor_value: minorValue
       });
     };
@@ -420,7 +416,6 @@ var define, requireModule, require, requirejs;
     __exports__.registerCurrency = registerCurrency;
     __exports__.registerLocale = registerLocale;
     __exports__.format = format;
-    __exports__.formatNumber = formatNumber;
     __exports__.parse = parse;
     __exports__.reset = reset;
   });

@@ -40,6 +40,15 @@ module("maguire#parse", {
         digit_grouping_style: 'triples'
       }
     });
+
+    maguire.registerLocale('fr-FR', {
+      positive: {
+        layout: "%{major_value}%{decimal}%{minor_value} %{symbol}",
+        decimal_symbol: ',',
+        digit_grouping_symbol: ' ',
+        digit_grouping_style: 'triples'
+      }
+    });
   },
   teardown: maguire.reset
 });
@@ -83,4 +92,8 @@ test("$200.2535", function () {
 test("null", function () {
   equal(parse(null), null);
   equal(parse(''), null);
+});
+
+test("locale", function () {
+  equal(parse("2 129,80", { locale: "fr-FR" }), 2129.80);
 });

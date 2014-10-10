@@ -149,10 +149,18 @@ test("free", function () {
   equal(format({ value: 1, currency: 'JPY' }, { free: "Free" }), "¥1");
 });
 
-test("formatNumber", function () {
-  equal(formatNumber({ value: '', currency: 'USD' }), null);
-  equal(formatNumber({ value: null, currency: 'USD' }), null);
-  equal(formatNumber({ value: 2045, currency: 'USD' }), 20.45);
-  equal(formatNumber({ value: 5000, currency: 'JPY' }), 5000);
-  equal(formatNumber({ value: 1999, currency: 'EUR' }), 19.99);
+test("format with number option", function () {
+  equal(format({ value: null, currency: 'USD' }, { number: true }), null);
+  equal(format({ value: 2045, currency: 'USD' }, { number: true }), '20.45');
+  equal(format({ value: 5000, currency: 'JPY' }, { number: true }), '5,000');
+  equal(format({ value: 1999, currency: 'EUR' }, { number: true }), '19.99');
+});
+
+test("format with number option and locale", function () {
+  equal(format({ value: 123456789012, currency: 'USD' }, { number: true, locale: 'en-IN' }), '1,23,45,67,890.12');
+  equal(format({ value: 212980, currency: 'EUR' }, { number: true, locale: 'fr-FR' }), '2 129,80');
+});
+
+test("format with no minor units", function () {
+  equal(format({ value: 123456789012, currency: 'USD' }, { number: true, noMinorUnits: true }), '1,234,567,890');
 });
