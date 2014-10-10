@@ -1,98 +1,101 @@
 var maguire = require('maguire');
 var format = maguire.format;
 
-maguire.registerCurrency({
-  name: 'US Dollar',
-  code: 'USD',
-  minor_units: 2,
-  precision: 100,
-  symbol: '$'
-});
+module("maguire#format", {
+  setup: function () {
+    maguire.registerCurrency({
+      name: 'US Dollar',
+      code: 'USD',
+      minor_units: 2,
+      precision: 100,
+      symbol: '$'
+    });
 
-maguire.registerCurrency({
-  name: 'Euro',
-  code: 'EUR',
-  minor_units: 2,
-  precision: 100,
-  symbol: '€',
-  symbol_html: '&euro;'
-});
+    maguire.registerCurrency({
+      name: 'Euro',
+      code: 'EUR',
+      minor_units: 2,
+      precision: 100,
+      symbol: '€',
+      symbol_html: '&euro;'
+    });
 
-maguire.registerCurrency({
-  name: 'Japanese Yen',
-  code: 'JPY',
-  minor_units: 0,
-  precision: 1,
-  symbol: '¥',
-  symbol_html: '&yen;'
-});
+    maguire.registerCurrency({
+      name: 'Japanese Yen',
+      code: 'JPY',
+      minor_units: 0,
+      precision: 1,
+      symbol: '¥',
+      symbol_html: '&yen;'
+    });
 
-maguire.registerCurrency({
-  name: 'Doge coin',
-  code: 'DOGE',
-  minor_units: 0,
-  precision: 1,
-  symbol: 'D'
-});
+    maguire.registerCurrency({
+      name: 'Doge coin',
+      code: 'DOGE',
+      minor_units: 0,
+      precision: 1,
+      symbol: 'D'
+    });
 
-maguire.registerLocale('en-US', {
-  positive: {
-    layout: "%{symbol}%{major_value}%{decimal}%{minor_value}",
-    decimal_symbol: '.',
-    digit_grouping_symbol: ',',
-    digit_grouping_style: 'triples'
+    maguire.registerLocale('en-US', {
+      positive: {
+        layout: "%{symbol}%{major_value}%{decimal}%{minor_value}",
+        decimal_symbol: '.',
+        digit_grouping_symbol: ',',
+        digit_grouping_style: 'triples'
+      },
+      negative: {
+        layout: "-%{symbol}%{major_value}%{decimal}%{minor_value}",
+        decimal_symbol: '.',
+        digit_grouping_symbol: ',',
+        digit_grouping_style: 'triples'
+      }
+    });
+
+    maguire.registerLocale('fr-FR', {
+      positive: {
+        layout: "%{major_value}%{decimal}%{minor_value} %{symbol}",
+        decimal_symbol: ',',
+        digit_grouping_symbol: ' ',
+        digit_grouping_style: 'triples'
+      }
+    });
+
+    maguire.registerLocale('en-IN', {
+      positive: {
+        layout: "%{symbol}%{major_value}%{decimal}%{minor_value}",
+        decimal_symbol: '.',
+        digit_grouping_symbol: ',',
+        digit_grouping_style: 'south_asian'
+      },
+    });
+
+    maguire.registerLocale('ja-JP', {
+      positive: {
+        layout: "%{major_value}%{decimal}%{minor_value}%{symbol}",
+        decimal_symbol: '.',
+        digit_grouping_symbol: ',',
+        digit_grouping_style: 'quadruples'
+      },
+    });
+
+    maguire.registerLocale('en-NO', {
+      positive: {
+        layout: "%{symbol} %{major_value}%{decimal}%{minor_value}",
+        decimal_symbol: ',',
+        digit_grouping_symbol: '.',
+        digit_grouping_style: 'triples'
+      },
+      zero: {
+        layout: "%{symbol} %{major_value}%{decimal}-",
+        decimal_symbol: ',',
+        digit_grouping_symbol: '.',
+        digit_grouping_style: 'triples'
+      }
+    });
   },
-  negative: {
-    layout: "-%{symbol}%{major_value}%{decimal}%{minor_value}",
-    decimal_symbol: '.',
-    digit_grouping_symbol: ',',
-    digit_grouping_style: 'triples'
-  }
+  teardown: maguire.reset
 });
-
-maguire.registerLocale('fr-FR', {
-  positive: {
-    layout: "%{major_value}%{decimal}%{minor_value} %{symbol}",
-    decimal_symbol: ',',
-    digit_grouping_symbol: ' ',
-    digit_grouping_style: 'triples'
-  }
-});
-
-maguire.registerLocale('en-IN', {
-  positive: {
-    layout: "%{symbol}%{major_value}%{decimal}%{minor_value}",
-    decimal_symbol: '.',
-    digit_grouping_symbol: ',',
-    digit_grouping_style: 'south_asian'
-  },
-});
-
-maguire.registerLocale('ja-JP', {
-  positive: {
-    layout: "%{major_value}%{decimal}%{minor_value}%{symbol}",
-    decimal_symbol: '.',
-    digit_grouping_symbol: ',',
-    digit_grouping_style: 'quadruples'
-  },
-});
-
-maguire.registerLocale('en-NO', {
-  positive: {
-    layout: "%{symbol} %{major_value}%{decimal}%{minor_value}",
-    decimal_symbol: ',',
-    digit_grouping_symbol: '.',
-    digit_grouping_style: 'triples'
-  },
-  zero: {
-    layout: "%{symbol} %{major_value}%{decimal}-",
-    decimal_symbol: ',',
-    digit_grouping_symbol: '.',
-    digit_grouping_style: 'triples'
-  }
-});
-
-module("maguire#format");
 
 test("without options", function () {
   equal(format({ value: 50000000, currency: 'USD' }), "$500,000.00");

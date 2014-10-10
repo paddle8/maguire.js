@@ -79,9 +79,28 @@ define("maguire",
       });
     };
 
+    var parse = function (value, options) {
+      options = options || {};
+      var locale = locales[options.locale || defaultLocale];
+
+      var digitGroupingSymbol = locale.positive.digit_grouping_symbol;
+      var decimalSymbol = locale.positive.decimal_symbol;
+
+      value = value.replace(digitGroupingSymbol, '')
+                   .replace(decimalSymbol, '.')
+                   .replace(/[^\d-.()]/g, '');
+
+      if (/\([\d\.]+\)/.test(value)) {
+        return parseFloat(value.replace('(', '').replace(')', '').replace('-', ''), 10) * - 1;
+      }
+
+      return parseFloat(value, 10);
+    }
+
     __exports__.registerCurrency = registerCurrency;
     __exports__.registerLocale = registerLocale;
     __exports__.format = format;
+    __exports__.parse = parse;
     __exports__.reset = reset;
   });
 ;define("maguire/utils", 
