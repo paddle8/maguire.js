@@ -300,6 +300,7 @@ var define, requireModule, require, requirejs;
     "use strict";
     var fmt = __dependency1__.fmt;
     var rjust = __dependency1__.rjust;
+    var trim = __dependency1__.trim;
     var splitValueIntoGroups = __dependency1__.splitValueIntoGroups;
 
     var currencies = {};
@@ -342,6 +343,7 @@ var define, requireModule, require, requirejs;
         formatting = locale.negative;
       }
 
+      var code = currency.code;
       var symbol = currency.symbol;
       if (options.html && currency.symbol_html) {
         symbol = currency.symbol_html;
@@ -372,16 +374,17 @@ var define, requireModule, require, requirejs;
       var majorValue = splitValueIntoGroups(majorValue, formatting.digit_grouping_style).join(formatting.digit_grouping_symbol);
 
       if (options.number) {
-        return majorValue + decimalSymbol + minorValue;
+        symbol = '';
+        code = '';
       }
 
-      return fmt(formatting.layout, {
+      return trim(fmt(formatting.layout, {
         symbol: symbol,
-        code: currency.code,
+        code: code,
         decimal: decimalSymbol,
         major_value: majorValue,
         minor_value: minorValue
-      });
+      }));
     };
 
     var parse = function (value, options) {
@@ -451,6 +454,14 @@ var define, requireModule, require, requirejs;
       });
     };
 
+    var trim = function (string) {
+      if (typeof String.prototype.trim !== 'function') {
+        return string.replace(/^\s+|\s+$/g, '');
+      } else {
+        return string.trim();
+      }
+    };
+
     var breakOff = function (value, number) {
       var len = value.length;
       if (number > len) {
@@ -490,4 +501,5 @@ var define, requireModule, require, requirejs;
     __exports__.rjust = rjust;
     __exports__.fmt = fmt;
     __exports__.splitValueIntoGroups = splitValueIntoGroups;
+    __exports__.trim = trim;
   });

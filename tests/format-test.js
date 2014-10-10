@@ -165,6 +165,10 @@ test("format with number option and locale", function () {
   equal(format({ value: 212980, currency: 'EUR' }, { number: true, locale: 'fr-FR' }), '2 129,80');
 });
 
-test("format with no minor units", function () {
+test("format number with no minor units", function () {
   equal(format({ value: 123456789012, currency: 'USD' }, { number: true, noMinorUnits: true }), '1,234,567,890');
+});
+
+test("format negative numbers", function () {
+  equal(format({ value: -123, currency: 'USD' }, { number: true }), '-1.23');
 });
