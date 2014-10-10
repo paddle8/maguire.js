@@ -322,6 +322,19 @@ var define, requireModule, require, requirejs;
       currencies = {};
     };
 
+    var formatNumber = function (money) {
+      var currency = currencies[money.currency.toLowerCase()];
+      var value = money.value;
+      if (value == null || value === '') {
+        return null;
+      }
+
+      var majorValue = Math.floor(Math.abs(value) / currency.precision);
+      var minorValue = Math.round(Math.abs(value) - majorValue * currency.precision);
+
+      return parseFloat(majorValue + "." + minorValue, 10);
+    };
+
     var format = function (money, options) {
       options = options || {};
 
@@ -358,7 +371,7 @@ var define, requireModule, require, requirejs;
         decimalSymbol = '';
       } else {
         if (minorValue === 0 && locale.zero) {
-          formatting = locale.zero
+          formatting = locale.zero;
         } else {
           minorValue = rjust(minorValue, currency.minor_units, "0");
         }
@@ -376,8 +389,13 @@ var define, requireModule, require, requirejs;
     };
 
     var parse = function (value, options) {
+      if (value == null || value === '') {
+        return null;
+      }
+
       options = options || {};
       var locale = locales[options.locale || defaultLocale];
+      var currency = currencies[(options.currency || '').toLowerCase()];
 
       var digitGroupingSymbol = locale.positive.digit_grouping_symbol;
       var decimalSymbol = locale.positive.decimal_symbol;
@@ -387,15 +405,22 @@ var define, requireModule, require, requirejs;
                    .replace(/[^\d-.()]/g, '');
 
       if (/\([\d\.]+\)/.test(value)) {
-        return parseFloat(value.replace('(', '').replace(')', '').replace('-', ''), 10) * - 1;
+        value = parseFloat(value.replace('(', '').replace(')', '').replace('-', ''), 10) * - 1;
+      } else {
+        value = parseFloat(value, 10);
       }
 
-      return parseFloat(value, 10);
-    }
+      if (currency) {
+        value = Math.floor(value * currency.precision);
+      }
+
+      return value;
+    };
 
     __exports__.registerCurrency = registerCurrency;
     __exports__.registerLocale = registerLocale;
     __exports__.format = format;
+    __exports__.formatNumber = formatNumber;
     __exports__.parse = parse;
     __exports__.reset = reset;
   });
