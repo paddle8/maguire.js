@@ -1,7 +1,7 @@
 var maguire = require('maguire');
 var format = maguire.format;
 
-maguire.registerCurrency("USD", {
+maguire.registerCurrency({
   name: 'US Dollar',
   code: 'USD',
   minor_units: 2,
@@ -9,7 +9,7 @@ maguire.registerCurrency("USD", {
   symbol: '$'
 });
 
-maguire.registerCurrency("EUR", {
+maguire.registerCurrency({
   name: 'Euro',
   code: 'EUR',
   minor_units: 2,
@@ -18,7 +18,7 @@ maguire.registerCurrency("EUR", {
   symbol_html: '&euro;'
 });
 
-maguire.registerCurrency("JPY", {
+maguire.registerCurrency({
   name: 'Japanese Yen',
   code: 'JPY',
   minor_units: 0,
@@ -27,7 +27,7 @@ maguire.registerCurrency("JPY", {
   symbol_html: '&yen;'
 });
 
-maguire.registerCurrency("DOGE", {
+maguire.registerCurrency({
   name: 'Doge coin',
   code: 'DOGE',
   minor_units: 0,
@@ -137,4 +137,10 @@ test("no decimal symbol is shown if the currency has no minor units", function (
 
 test("custom formatting when the minor unit is zero", function () {
   equal(format({ value: 100000, currency: 'USD' }, { locale: 'en-NO' }), "$ 1.000,-");
+});
+
+test("free", function () {
+  equal(format({ value: 0, currency: 'USD' }, { free: "Free" }), "Free");
+  equal(format({ value: 10, currency: 'USD' }, { noMinorUnits: true, free: "Gratis" }), "Gratis");
+  equal(format({ value: 1, currency: 'JPY' }, { free: "Free" }), "¥1");
 });

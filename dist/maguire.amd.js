@@ -7,8 +7,8 @@ define("maguire",
     var splitValueIntoGroups = __dependency1__.splitValueIntoGroups;
 
     var currencies = {};
-    var registerCurrency = function (currency, data) {
-      currencies[currency] = data;
+    var registerCurrency = function (data) {
+      currencies[data.code.toLowerCase()] = data;
     };
 
     var locales = {};
@@ -29,7 +29,7 @@ define("maguire",
     var format = function (money, options) {
       options = options || {};
 
-      var currency = currencies[money.currency];
+      var currency = currencies[money.currency.toLowerCase()];
       var value = money.value;
       var locale = locales[options.locale || defaultLocale];
 
@@ -50,6 +50,10 @@ define("maguire",
       if (options.noMinorUnits || currency.minor_units === 0) {
         minorValue = 0;
         stripInsignificantZeros = true;
+      }
+
+      if (minorValue === 0 && majorValue === 0 && options.free) {
+        return options.free;
       }
 
       var decimalSymbol = formatting.decimal_symbol;
