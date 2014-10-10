@@ -98,6 +98,10 @@ module("maguire#format", {
   teardown: maguire.reset
 });
 
+test("null", function () {
+  equal(format(null), null);
+});
+
 test("without options", function () {
   equal(format({ value: 50000000, currency: 'USD' }), "$500,000.00");
 });
