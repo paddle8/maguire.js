@@ -22,11 +22,6 @@ var amd = compileES6('lib', {
   outputFile: '/maguire.amd.js'
 });
 
-var tests = pickFiles('tests', {
-  srcDir: '/',
-  destDir: 'tests'
-});
-
 var uglify = function (tree, filename) {
   var minFilename = filename.split('.');
   minFilename.pop();
@@ -37,11 +32,26 @@ var uglify = function (tree, filename) {
   }));
 }
 
-module.exports = mergeTrees([
-  lib,
-  uglify(lib, 'maguire.js'),
-  amd,
-  uglify(amd, 'maguire.amd.js'),
-  'public',
-  tests
-]);
+if (env === 'test') {
+  var tests = pickFiles('tests', {
+    srcDir: '/',
+    destDir: 'tests'
+  });
+
+  module.exports = mergeTrees([
+    lib,
+    uglify(lib, 'maguire.js'),
+    amd,
+    uglify(amd, 'maguire.amd.js'),
+    'public',
+    tests
+  ]);
+} else {
+  module.exports = mergeTrees([
+    lib,
+    uglify(lib, 'maguire.js'),
+    amd,
+    uglify(amd, 'maguire.amd.js')
+  ]);
+}
+
