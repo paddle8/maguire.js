@@ -3,7 +3,7 @@
   "dependencies": {
     "loader.js": "stefanpenner/loader.js#2.0.0"
   },
-  "version": "0.1.0",
+  "version": "0.0.2",
   "authors": [
     "Tim Evans <tim.evans@paddle8.com>"
   ],

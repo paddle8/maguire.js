@@ -54,4 +54,3 @@ if (env === 'test') {
     uglify(amd, 'maguire.amd.js')
   ]);
 }
-
