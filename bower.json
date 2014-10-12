@@ -4,10 +4,21 @@
     "loader.js": "stefanpenner/loader.js#2.0.0"
   },
   "version": "0.0.2",
+  "homepage": "https://github.com/paddle8/maguire.js",
   "authors": [
     "Tim Evans <tim.evans@paddle8.com>"
   ],
   "description": "A lightweight money formatting library to work in conjunction with maguire",
   "main": "dist/maguire.js",
-  "license": "MIT"
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests",
+    "public",
+    "Gruntfile.js",
+    "Brocfile.js",
+    "testem.json"
+  ]
 }
