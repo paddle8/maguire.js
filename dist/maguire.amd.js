@@ -125,6 +125,13 @@ define("maguire",
     __exports__.format = format;
     __exports__.parse = parse;
     __exports__.reset = reset;
+    __exports__["default"] = {
+      registerCurrency: registerCurrency,
+      registerLocale: registerLocale,
+      format: format,
+      parse: parse,
+      reset: reset
+    };
   });
 ;define("maguire/utils", 
   ["exports"],
