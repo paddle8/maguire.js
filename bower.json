@@ -1,9 +1,9 @@
 {
   "name": "maguire.js",
   "dependencies": {
-    "loader.js": "stefanpenner/loader.js#2.0.0"
+    "loader.js": "stefanpenner/loader.js#1.0.1"
   },
-  "version": "0.0.4",
+  "version": "0.0.5",
   "homepage": "https://github.com/paddle8/maguire.js",
   "authors": [
     "Tim Evans <tim.evans@paddle8.com>"
