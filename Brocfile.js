@@ -1,7 +1,7 @@
 var compileES6 = require('broccoli-es6-concatenator');
 var mergeTrees = require('broccoli-merge-trees');
 var uglifyJs = require('broccoli-uglify-js');
-var moveFile = require('broccoli-file-mover');
+var Funnel = require('broccoli-funnel');
 var pickFiles = require('broccoli-static-compiler');
 var env = process.env.BROCCOLI_ENV || 'development';
 
@@ -26,9 +26,10 @@ var uglify = function (tree, filename) {
   var minFilename = filename.split('.');
   minFilename.pop();
   minFilename.push('min', 'js');
-  return uglifyJs(moveFile(tree, {
-    srcFile: '/' + filename,
-    destFile: '/' + minFilename.join('.')
+  return uglifyJs(new Funnel(tree, {
+    getDestinationPath: function (relativePath) {
+      return '/' + minFilename.join('.')
+    }
   }));
 }
 
