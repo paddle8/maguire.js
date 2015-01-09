@@ -126,6 +126,8 @@ define("maguire",
     __exports__.parse = parse;
     __exports__.reset = reset;
     __exports__["default"] = {
+      currencies: currencies,
+      locales: locales,
       registerCurrency: registerCurrency,
       registerLocale: registerLocale,
       format: format,
