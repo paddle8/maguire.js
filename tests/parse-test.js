@@ -89,6 +89,10 @@ test("$200.2535", function () {
   equal(parse("$200.2535", { currency: 'USD' }), 20025);
 });
 
+test("$64.99", function () {
+  equal(parse("$64.99", { currency: 'USD' }), 6499);
+});
+
 test("null", function () {
   equal(parse(null), null);
   equal(parse(''), null);
