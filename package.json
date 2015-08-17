@@ -1,6 +1,6 @@
 {
   "name": "maguire.js",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "directories": {
     "doc": "doc",
     "test": "tests"
