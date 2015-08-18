@@ -31,3 +31,13 @@ var format = require('maguire').format;
 format({ value: 2000, currency: 'USD' });
 // => $20.00
 ```
+
+### Building
+
+Install 
+- [Broccoli] (https://github.com/broccolijs/broccoli)
+- [Grunt] (http://gruntjs.com/)
+
+```
+grunt
+```
